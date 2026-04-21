@@ -124,6 +124,14 @@ To install for a specific host only:
 
 ## Update
 
+### npx skills update
+
+```bash
+npx skills update zhengxuyu/zforge
+```
+
+### git clone
+
 ```bash
 cd ~/.claude/skills/zforge && git pull && ./setup
 ```
