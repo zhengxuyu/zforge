@@ -30,7 +30,7 @@ Type a slash command, get a disciplined workflow. TDD, branch isolation, PR revi
 ### npx (recommended)
 
 ```bash
-npx @zhengxuyu/zforge
+npx zforge
 ```
 
 ### git clone
@@ -46,7 +46,7 @@ Both methods create symlinks from `~/.claude/skills/<skill-name>/` to each skill
 ## Update
 
 ```bash
-npx @zhengxuyu/zforge@latest
+npx zforge@latest
 ```
 
 Or if installed via git:
