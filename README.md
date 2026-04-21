@@ -54,6 +54,12 @@ zforge gives your agent a complete set of development workflows so it follows th
 - Lists outdated deps, applies patches in bulk, minors in batches, majors one by one
 - Tests after each batch, lock file committed alongside
 
+**"Set up CI/CD for this project"** → `/zforge:setup-ci`
+- Auto-detects language, package manager, test framework, build tool
+- Walks you through a questionnaire: triggers, testing, coverage, linting, security, deployment
+- Generates GitHub Actions workflows (ci.yml, deploy.yml, security.yml) with proper caching and concurrency
+- You review and confirm before anything is written
+
 ## Skills
 
 ### Development
@@ -74,6 +80,7 @@ zforge gives your agent a complete set of development workflows so it follows th
 | `/zforge:git-release` | Cut a release — tag, push, GitHub release with notes |
 | `/zforge:update-deps` | Update dependencies safely — changelogs, tests, PR |
 | `/zforge:init-project` | Start a new project — repo, structure, tooling, first commit |
+| `/zforge:setup-ci` | Set up CI/CD — interactive questionnaire, generates GitHub Actions workflows |
 
 ## Install
 
