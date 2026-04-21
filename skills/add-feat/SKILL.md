@@ -13,19 +13,41 @@ Follow this exact sequence. Do NOT skip steps.
 git checkout main && git pull
 ```
 
-## 2. Design
-- Explore the design space: what are the options, tradeoffs, edge cases?
-- Present design to the user for approval before writing any code
-- If the feature is simple and user says to skip design, proceed directly
+## 2. Requirements Discovery (questionnaire)
 
-## 3. Create worktree and branch
+Before designing, understand what the user actually needs. Ask questions **one at a time** — wait for the answer before asking the next.
+
+**Q1: Intent** — "What problem does this feature solve? Who needs it and why?"
+- Push if vague: "Can you describe a concrete scenario where someone would use this?"
+
+**Q2: Scope** — "What's the smallest version of this that would be useful?"
+- Present options if applicable: A) minimal, B) standard, C) full
+- Recommend one with a brief reason
+
+**Q3: Existing patterns** — Review the codebase for related code, then ask:
+"I found [related code/patterns]. Should this feature follow the same approach, or is there a reason to diverge?"
+
+**Q4: Edge cases & conflicts** — Based on Q1-Q3, identify potential issues:
+"I see these potential concerns: [list]. Which matter? Any others I'm missing?"
+
+**Q5: Success criteria** — "How will we know this works? What should the tests verify?"
+
+**Skip rule:** If the user says "skip" or the feature is trivially simple (< 20 lines of change), jump to step 3. But always ask Q1 at minimum.
+
+After the questionnaire, summarize what you understood and get explicit confirmation before proceeding.
+
+## 3. Design
+- Based on the requirements discovery, explore the design space: options, tradeoffs, edge cases
+- Present design to the user for approval before writing any code
+
+## 4. Create worktree and branch
 ```
 git worktree add .claude/worktrees/feat-<name> -b feat/<feature-name>
 cd .claude/worktrees/feat-<name>
 ```
 All work happens in the worktree — main stays clean.
 
-## 4. TDD Implementation
+## 5. TDD Implementation
 - **Write tests FIRST**, then implement
 - For each unit of work:
   1. Write a failing test
@@ -33,23 +55,23 @@ All work happens in the worktree — main stays clean.
   3. Refactor if needed
 - Run the full test suite after each change
 
-## 5. Verify
+## 6. Verify
 - Run full test suite
 - Verify compilation / import checks where applicable
 - Check no silent excepts, no debug prints left behind
 
-## 6. Code Review
+## 7. Code Review
 - Self-review via `git diff main...HEAD`
 - Or dispatch a code-review subagent if available
 - Fix all issues found before proceeding
 
-## 7. Create PR
+## 8. Create PR
 - Commit with descriptive message
 - Push branch and create PR via `gh pr create`
 - Return the PR URL
 - **DO NOT merge** — wait for explicit approval
 
-## 8. Merge (only when approved)
+## 9. Merge (only when approved)
 - `gh pr merge <number> --merge`
 - Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/feat-<name>`
 - `git checkout main && git pull && git branch -d feat/<feature-name>`

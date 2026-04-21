@@ -38,6 +38,12 @@ zforge gives your agent a complete set of development workflows so it follows th
 - Refactors incrementally, tests must stay green after every change
 - If a test breaks, the refactor changed behavior — revert and rethink
 
+**"Audit this codebase before we go to production"** → `/zforge:audit`
+- Scans for security vulnerabilities (injection, auth issues, hardcoded secrets)
+- Reviews code quality (dead code, complexity hotspots, untested paths)
+- Checks architecture (circular deps, separation of concerns, scalability)
+- Structured report with file:line citations, prioritized by severity
+
 **"Review PR #42 before we merge"** → `/zforge:pr-review`
 - Fetches diff, understands intent, reviews for correctness and security
 - Runs tests locally, tries to break edge cases
@@ -76,6 +82,7 @@ zforge gives your agent a complete set of development workflows so it follows th
 
 | Skill | When to use |
 |-------|-------------|
+| `/zforge:audit` | Audit a codebase — security, quality, architecture report |
 | `/zforge:pr-review` | Review a PR before merge — diff, tests, structured report |
 | `/zforge:git-release` | Cut a release — tag, push, GitHub release with notes |
 | `/zforge:update-deps` | Update dependencies safely — changelogs, tests, PR |
