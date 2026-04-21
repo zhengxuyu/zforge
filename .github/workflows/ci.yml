@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate package
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Audit dependencies
+        run: npm audit --omit=dev || true
+
+      - name: Verify bin entry point exists
+        run: |
+          if [ ! -f bin/zforge.mjs ]; then
+            echo "::error::bin/zforge.mjs not found"
+            exit 1
+          fi
+
+      - name: Verify package.json is valid
+        run: node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8'))"
+
+      - name: Test CLI executes
+        run: node bin/zforge.mjs --help || node bin/zforge.mjs
