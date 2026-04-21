@@ -84,7 +84,13 @@ zforge gives your agent a complete set of development workflows so it follows th
 
 ## Install
 
-### Claude Code plugin (recommended)
+### npx skills add (recommended)
+
+```bash
+npx skills add zhengxuyu/zforge
+```
+
+### Claude Code plugin
 
 ```
 /plugin install zhengxuyu/zforge
