@@ -86,12 +86,36 @@ Present findings as a structured report:
 3. ...
 ```
 
-## 6. Remediation (optional)
+## 6. Remediation
 
-If the user wants to act on findings:
-- For security fixes — kick off `/hotfix` for critical items
-- For quality issues — kick off `/fix-bug` or `/refactor` as appropriate
-- Prioritize: critical security > important security > critical quality > the rest
+After presenting the report, ask the user:
+
+> "Audit complete. Want me to generate a remediation plan and start fixing these issues?"
+
+If the user agrees:
+
+1. **Build a remediation plan** — group findings into actionable work items, ordered by priority:
+   - Critical security → `/zforge:hotfix` (one per critical finding)
+   - Important security + critical quality → `/zforge:fix-bug`
+   - Architecture / quality improvements → `/zforge:refactor`
+   - New capabilities needed to address gaps → `/zforge:add-feat`
+
+2. **Present the plan** as a numbered list with skill, branch name, and scope:
+   ```
+   ## Remediation Plan
+
+   | # | Skill | Branch | Scope |
+   |---|-------|--------|-------|
+   | 1 | /hotfix | hotfix/fix-sql-injection | SQL injection in user query (auth.py:42) |
+   | 2 | /fix-bug | fix/add-input-validation | Missing input validation on API endpoints |
+   | 3 | /refactor | refactor/extract-auth-middleware | Auth logic duplicated across 4 handlers |
+   ```
+
+3. **Get explicit confirmation** before starting any work
+
+4. **Execute sequentially** — invoke the corresponding skill for each item, one at a time, following its full workflow (branch, TDD, PR)
+
+If the user declines, end the audit. The report stands on its own.
 
 ## Rules
 - **Cite file:line for every finding** — no vague claims
