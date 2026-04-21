@@ -1,7 +1,7 @@
 {
   "name": "zforge",
   "version": "0.1.0",
-  "description": "Standardized GitHub development workflow skills for Claude Code",
+  "description": "Standardized GitHub development workflow skills for AI coding agents",
   "type": "module",
   "bin": {
     "zforge": "bin/zforge.mjs"

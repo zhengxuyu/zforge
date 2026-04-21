@@ -1,6 +1,6 @@
 # zforge
 
-Standardized GitHub development workflow skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+Standardized GitHub development workflow skills for AI coding agents — Claude Code, Codex, Kiro, OpenClaw, Hermes Agent, and more.
 
 Type a slash command, get a disciplined workflow. TDD, branch isolation, PR review, quality checklist — every time, no exceptions.
 
@@ -41,7 +41,22 @@ cd ~/.claude/skills/zforge
 ./setup
 ```
 
-Both methods create symlinks from `~/.claude/skills/<skill-name>/` to each skill, so Claude Code discovers them automatically.
+Both methods auto-detect installed hosts and create symlinks into their skill directories:
+
+| Host | Directory |
+|------|-----------|
+| Claude Code | `~/.claude/skills/` |
+| Codex | `~/.codex/skills/` |
+| Kiro | `~/.kiro/skills/` |
+| Factory | `~/.factory/skills/` |
+
+OpenClaw and Hermes Agent spawn Claude Code sessions, so they pick up skills from `~/.claude/skills/` automatically.
+
+To install for a specific host only:
+
+```bash
+./setup --host codex
+```
 
 ## Update
 

@@ -1,44 +1,86 @@
 #!/usr/bin/env bash
-# zforge setup — register skills with Claude Code
+# zforge setup — register skills with AI coding agents
 set -e
 
 ZFORGE_DIR="$(cd "$(dirname "$0")" && pwd)"
-SKILLS_DIR="$HOME/.claude/skills"
 
-# Ensure skills directory exists
-mkdir -p "$SKILLS_DIR"
+# ─── Parse flags ──────────────────────────────────────────────
+HOST="auto"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --host) HOST="$2"; shift 2 ;;
+    --host=*) HOST="${1#--host=}"; shift ;;
+    *) shift ;;
+  esac
+done
+
+# ─── Supported hosts and their skill directories ─────────────
+# OpenClaw and Hermes Agent spawn Claude Code sessions,
+# so they use ~/.claude/skills/ — no separate entry needed.
+host_dir() {
+  case "$1" in
+    claude)  echo "$HOME/.claude/skills" ;;
+    codex)   echo "$HOME/.codex/skills" ;;
+    kiro)    echo "$HOME/.kiro/skills" ;;
+    factory) echo "$HOME/.factory/skills" ;;
+    *) return 1 ;;
+  esac
+}
+
+ALL_HOSTS="claude codex kiro factory"
+
+# ─── Resolve target hosts ────────────────────────────────────
+targets=""
+
+if [ "$HOST" = "auto" ]; then
+  for h in $ALL_HOSTS; do
+    dir="$(host_dir "$h")"
+    if [ -d "$dir" ] || [ "$h" = "claude" ]; then
+      targets="$targets $h"
+    fi
+  done
+elif host_dir "$HOST" >/dev/null 2>&1; then
+  targets="$HOST"
+else
+  echo "Unknown --host: $HOST (expected: claude, codex, kiro, factory, or auto)" >&2
+  exit 1
+fi
 
 echo "zforge setup"
 echo "  repo: $ZFORGE_DIR"
-echo "  skills dir: $SKILLS_DIR"
 echo ""
 
-linked=0
+host_count=0
 
-# Link each skill directory
-for skill_dir in "$ZFORGE_DIR"/skills/*/; do
-  [ -d "$skill_dir" ] || continue
-  skill_name="$(basename "$skill_dir")"
-  target="$SKILLS_DIR/$skill_name"
+for host in $targets; do
+  skills_dir="$(host_dir "$host")"
+  mkdir -p "$skills_dir"
+  echo "  [$host] $skills_dir"
+  host_count=$((host_count + 1))
 
-  if [ -L "$target" ]; then
-    # Already a symlink — update if pointing elsewhere
-    current="$(readlink "$target")"
-    if [ "$current" = "$skill_dir" ] || [ "$current" = "${skill_dir%/}" ]; then
-      echo "  [ok] $skill_name"
+  for skill_dir in "$ZFORGE_DIR"/skills/*/; do
+    [ -d "$skill_dir" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    target="$skills_dir/$skill_name"
+
+    if [ -L "$target" ]; then
+      current="$(readlink "$target")"
+      if [ "$current" = "$skill_dir" ] || [ "$current" = "${skill_dir%/}" ]; then
+        echo "    [ok] $skill_name"
+      else
+        rm "$target"
+        ln -s "$skill_dir" "$target"
+        echo "    [updated] $skill_name"
+      fi
+    elif [ -d "$target" ]; then
+      echo "    [skip] $skill_name — directory exists (not a symlink)"
     else
-      rm "$target"
       ln -s "$skill_dir" "$target"
-      echo "  [updated] $skill_name -> $skill_dir"
+      echo "    [linked] $skill_name"
     fi
-  elif [ -d "$target" ]; then
-    echo "  [skip] $skill_name — directory already exists (not a symlink)"
-  else
-    ln -s "$skill_dir" "$target"
-    echo "  [linked] $skill_name -> $skill_dir"
-  fi
-  linked=$((linked + 1))
+  done
+  echo ""
 done
 
-echo ""
-echo "Done. $linked skills registered."
+skill_count=$(find "$ZFORGE_DIR/skills" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
+echo "Done. $skill_count skills registered across $host_count host(s)."
