@@ -84,16 +84,10 @@ zforge gives your agent a complete set of development workflows so it follows th
 
 ## Install
 
-### Claude Code plugin (recommended)
-
-```
-/plugin install zhengxuyu/zforge
-```
-
-### npx
+### npx skills add (recommended)
 
 ```bash
-npx zforge
+npx skills add zhengxuyu/zforge
 ```
 
 ### git clone
@@ -122,12 +116,6 @@ To install for a specific host only:
 ```
 
 ## Update
-
-```bash
-npx zforge@latest
-```
-
-Or if installed via git:
 
 ```bash
 cd ~/.claude/skills/zforge && git pull && ./setup
