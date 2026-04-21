@@ -27,15 +27,29 @@ Type a slash command, get a disciplined workflow. TDD, branch isolation, PR revi
 
 ## Install
 
+### npx (recommended)
+
+```bash
+npx @zhengxuyu/zforge
+```
+
+### git clone
+
 ```bash
 git clone git@github.com:zhengxuyu/zforge.git ~/.claude/skills/zforge
 cd ~/.claude/skills/zforge
 ./setup
 ```
 
-This creates symlinks from `~/.claude/skills/<skill-name>/` to each skill, so Claude Code discovers them automatically.
+Both methods create symlinks from `~/.claude/skills/<skill-name>/` to each skill, so Claude Code discovers them automatically.
 
 ## Update
+
+```bash
+npx @zhengxuyu/zforge@latest
+```
+
+Or if installed via git:
 
 ```bash
 cd ~/.claude/skills/zforge && git pull && ./setup

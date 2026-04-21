@@ -3,12 +3,17 @@
 set -e
 
 ZFORGE_DIR="$(cd "$(dirname "$0")" && pwd)"
-SKILLS_DIR="$(dirname "$ZFORGE_DIR")"
+SKILLS_DIR="$HOME/.claude/skills"
+
+# Ensure skills directory exists
+mkdir -p "$SKILLS_DIR"
 
 echo "zforge setup"
 echo "  repo: $ZFORGE_DIR"
 echo "  skills dir: $SKILLS_DIR"
 echo ""
+
+linked=0
 
 # Link each skill directory
 for skill_dir in "$ZFORGE_DIR"/skills/*/; do
@@ -32,7 +37,8 @@ for skill_dir in "$ZFORGE_DIR"/skills/*/; do
     ln -s "$skill_dir" "$target"
     echo "  [linked] $skill_name -> $skill_dir"
   fi
+  linked=$((linked + 1))
 done
 
 echo ""
-echo "Done. $(find "$ZFORGE_DIR/skills" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ') skills registered."
+echo "Done. $linked skills registered."

@@ -1,0 +1,28 @@
+{
+  "name": "@zhengxuyu/zforge",
+  "version": "0.1.0",
+  "description": "Standardized GitHub development workflow skills for Claude Code",
+  "type": "module",
+  "bin": {
+    "zforge": "./bin/zforge.mjs"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "setup",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhengxuyu/zforge.git"
+  },
+  "keywords": [
+    "claude-code",
+    "skills",
+    "workflow",
+    "tdd",
+    "github"
+  ],
+  "author": "zhengxuyu",
+  "license": "MIT"
+}
