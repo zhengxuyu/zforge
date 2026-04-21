@@ -13,10 +13,12 @@ For urgent production fixes. Minimal change, fast turnaround.
 git checkout main && git pull
 ```
 
-## 2. Create branch
+## 2. Create worktree and branch
 ```
-git checkout -b hotfix/<description>
+git worktree add .claude/worktrees/hotfix-<name> -b hotfix/<description>
+cd .claude/worktrees/hotfix-<name>
 ```
+All work happens in the worktree — main stays clean.
 
 ## 3. Identify and fix
 - Read the error carefully — stack trace, logs, error message
@@ -37,7 +39,8 @@ git checkout -b hotfix/<description>
 
 ## 6. Merge (only when approved)
 - `gh pr merge <number> --merge`
-- Clean up: `git checkout main && git pull && git branch -d <branch>`
+- Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/hotfix-<name>`
+- `git checkout main && git pull && git branch -d hotfix/<description>`
 - Consider whether a release is needed immediately
 
 ## Rules

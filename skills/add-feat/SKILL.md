@@ -18,10 +18,12 @@ git checkout main && git pull
 - Present design to the user for approval before writing any code
 - If the feature is simple and user says to skip design, proceed directly
 
-## 3. Create branch
+## 3. Create worktree and branch
 ```
-git checkout -b feat/<feature-name>
+git worktree add .claude/worktrees/feat-<name> -b feat/<feature-name>
+cd .claude/worktrees/feat-<name>
 ```
+All work happens in the worktree — main stays clean.
 
 ## 4. TDD Implementation
 - **Write tests FIRST**, then implement
@@ -49,7 +51,8 @@ git checkout -b feat/<feature-name>
 
 ## 8. Merge (only when approved)
 - `gh pr merge <number> --merge`
-- Clean up: `git checkout main && git pull && git branch -d <branch>`
+- Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/feat-<name>`
+- `git checkout main && git pull && git branch -d feat/<feature-name>`
 
 ## Rules
 - **Never merge without explicit approval**

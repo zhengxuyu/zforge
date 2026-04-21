@@ -17,10 +17,12 @@ git checkout main && git pull
 - Run full test suite — **all tests must pass before you touch anything**
 - If tests fail, fix them first (that's a `/fix-bug`, not a refactor)
 
-## 3. Create branch
+## 3. Create worktree and branch
 ```
-git checkout -b refactor/<description>
+git worktree add .claude/worktrees/refactor-<name> -b refactor/<description>
+cd .claude/worktrees/refactor-<name>
 ```
+All work happens in the worktree — main stays clean.
 
 ## 4. Plan the refactor
 - Identify what to change and why (readability, performance, deduplication, etc.)
@@ -50,7 +52,8 @@ git checkout -b refactor/<description>
 
 ## 9. Merge (only when approved)
 - `gh pr merge <number> --merge`
-- Clean up: `git checkout main && git pull && git branch -d <branch>`
+- Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/refactor-<name>`
+- `git checkout main && git pull && git branch -d refactor/<description>`
 
 ## Rules
 - **Tests must pass before AND after** — the whole point of refactoring
