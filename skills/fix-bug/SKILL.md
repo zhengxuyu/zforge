@@ -46,7 +46,9 @@ All work happens in the worktree — main stays clean.
 ## 7. Create PR
 - Commit with message explaining the root cause
 - Push branch and create PR via `gh pr create`
-- Return the PR URL
+- Wait for CI/CD checks to complete: `gh pr checks <number> --watch`
+- If checks fail, fix the issues and push again — do not notify the user until all checks are green
+- Once all checks pass, return the PR URL and ask the user to review
 - **DO NOT merge** — wait for explicit approval
 
 ## 8. Merge (only when approved)
