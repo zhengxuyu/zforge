@@ -20,10 +20,12 @@ git checkout main && git pull
 - Phase 3: Form a single hypothesis, test minimally
 - Phase 4: Implement fix with test
 
-## 3. Create branch
+## 3. Create worktree and branch
 ```
-git checkout -b fix/<bug-description>
+git worktree add .claude/worktrees/fix-<name> -b fix/<bug-description>
+cd .claude/worktrees/fix-<name>
 ```
+All work happens in the worktree — main stays clean.
 
 ## 4. TDD Fix
 - **Write a failing test that reproduces the bug FIRST**
@@ -49,7 +51,8 @@ git checkout -b fix/<bug-description>
 
 ## 8. Merge (only when approved)
 - `gh pr merge <number> --merge`
-- Clean up: `git checkout main && git pull && git branch -d <branch>`
+- Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/fix-<name>`
+- `git checkout main && git pull && git branch -d fix/<bug-description>`
 
 ## Rules
 - **Never merge without explicit approval**

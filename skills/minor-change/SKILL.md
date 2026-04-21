@@ -13,10 +13,12 @@ For small adjustments: text changes, style tweaks, config updates, removing dead
 git checkout main && git pull
 ```
 
-## 2. Create branch
+## 2. Create worktree and branch
 ```
-git checkout -b fix/<description>   # or chore/<description>
+git worktree add .claude/worktrees/chore-<name> -b chore/<description>   # or fix/<description>
+cd .claude/worktrees/chore-<name>
 ```
+All work happens in the worktree — main stays clean.
 
 ## 3. Make the change
 - If the change touches logic, write a test first (TDD)
@@ -40,7 +42,8 @@ git checkout -b fix/<description>   # or chore/<description>
 
 ## 7. Merge (only when approved)
 - `gh pr merge <number> --merge`
-- Clean up: `git checkout main && git pull && git branch -d <branch>`
+- Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/chore-<name>`
+- `git checkout main && git pull && git branch -d chore/<description>`
 
 ## Rules
 - **Never merge without explicit approval**

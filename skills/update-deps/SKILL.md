@@ -18,10 +18,12 @@ git checkout main && git pull
 - Identify which updates are available: patch, minor, major
 - Present the list to the user
 
-## 3. Create branch
+## 3. Create worktree and branch
 ```
-git checkout -b chore/update-deps
+git worktree add .claude/worktrees/chore-update-deps -b chore/update-deps
+cd .claude/worktrees/chore-update-deps
 ```
+All work happens in the worktree — main stays clean.
 
 ## 4. Update incrementally
 - **Patch updates**: apply all at once, low risk
@@ -42,7 +44,8 @@ After each batch:
 
 ## 6. Merge (only when approved)
 - `gh pr merge <number> --merge`
-- Clean up: `git checkout main && git pull && git branch -d <branch>`
+- Clean up worktree: `cd <project-root> && git worktree remove .claude/worktrees/chore-update-deps`
+- `git checkout main && git pull && git branch -d chore/update-deps`
 
 ## Rules
 - **Never merge without explicit approval**
