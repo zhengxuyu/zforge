@@ -27,7 +27,13 @@ Type a slash command, get a disciplined workflow. TDD, branch isolation, PR revi
 
 ## Install
 
-### npx (recommended)
+### Claude Code plugin (recommended)
+
+```
+/plugin install zhengxuyu/zforge
+```
+
+### npx
 
 ```bash
 npx zforge

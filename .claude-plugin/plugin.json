@@ -1,0 +1,13 @@
+{
+  "name": "zforge",
+  "description": "Standardized GitHub development workflow skills for AI coding agents — TDD, branching, PR review, release",
+  "version": "0.1.0",
+  "author": {
+    "name": "zhengxuyu",
+    "email": "yuzxfred@gmail.com"
+  },
+  "homepage": "https://github.com/zhengxuyu/zforge",
+  "repository": "https://github.com/zhengxuyu/zforge",
+  "license": "MIT",
+  "keywords": ["workflow", "tdd", "github", "pr", "code-review", "release"]
+}
