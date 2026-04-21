@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# zforge setup — register skills with Claude Code
+set -e
+
+ZFORGE_DIR="$(cd "$(dirname "$0")" && pwd)"
+SKILLS_DIR="$(dirname "$ZFORGE_DIR")"
+
+echo "zforge setup"
+echo "  repo: $ZFORGE_DIR"
+echo "  skills dir: $SKILLS_DIR"
+echo ""
+
+# Link each skill directory
+for skill_dir in "$ZFORGE_DIR"/skills/*/; do
+  [ -d "$skill_dir" ] || continue
+  skill_name="$(basename "$skill_dir")"
+  target="$SKILLS_DIR/$skill_name"
+
+  if [ -L "$target" ]; then
+    # Already a symlink — update if pointing elsewhere
+    current="$(readlink "$target")"
+    if [ "$current" = "$skill_dir" ] || [ "$current" = "${skill_dir%/}" ]; then
+      echo "  [ok] $skill_name"
+    else
+      rm "$target"
+      ln -s "$skill_dir" "$target"
+      echo "  [updated] $skill_name -> $skill_dir"
+    fi
+  elif [ -d "$target" ]; then
+    echo "  [skip] $skill_name — directory already exists (not a symlink)"
+  else
+    ln -s "$skill_dir" "$target"
+    echo "  [linked] $skill_name -> $skill_dir"
+  fi
+done
+
+echo ""
+echo "Done. $(find "$ZFORGE_DIR/skills" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ') skills registered."
