@@ -44,6 +44,11 @@ zforge gives your agent a complete set of development workflows so it follows th
 - Checks architecture (circular deps, separation of concerns, scalability)
 - Structured report with file:line citations, prioritized by severity
 
+**"Watch this CI pipeline until it's green"** → `/zforge:watchdog`
+- Spawns a cheap Haiku subagent every 60s to check `gh pr checks`
+- All green → notifies you. Failure → main model reads logs, fixes, pushes, resumes monitoring
+- Works for any long-running process: CI, deployments, training jobs, servers
+
 **"Review PR #42 before we merge"** → `/zforge:pr-review`
 - Fetches diff, understands intent, reviews for correctness and security
 - Runs tests locally, tries to break edge cases
@@ -82,6 +87,7 @@ zforge gives your agent a complete set of development workflows so it follows th
 
 | Skill | When to use |
 |-------|-------------|
+| `/zforge:watchdog` | Monitor any long-running process — CI/CD, deployments, jobs |
 | `/zforge:audit` | Audit a codebase — security, quality, architecture report |
 | `/zforge:pr-review` | Review a PR before merge — diff, tests, structured report |
 | `/zforge:git-release` | Cut a release — tag, push, GitHub release with notes |

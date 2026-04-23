@@ -47,9 +47,12 @@ All work happens in the worktree — main stays clean.
 ## 8. Create PR
 - Commit with message explaining what was refactored and why
 - Push and create PR via `gh pr create`
-- Wait for CI/CD checks to complete: `gh pr checks <number> --watch`
-- If checks fail, fix the issues and push again — do not notify the user until all checks are green
-- Once all checks pass, return the PR URL and ask the user to review
+- **Start CI/CD watchdog loop** — do NOT block with `gh pr checks --watch`. Instead:
+  1. Spawn a Haiku subagent every **60 seconds** to run `gh pr checks <number> --json name,state,conclusion`
+  2. If all checks pass → notify user with PR URL, ask to review, stop loop
+  3. If any check fails → escalate to main model: read logs via `gh run view <run-id> --log-failed`, diagnose, fix in worktree, commit and push, then resume monitoring
+  4. If checks still pending → schedule next check in 60s via `ScheduleWakeup`
+  - Do not notify the user until all checks are green
 - **DO NOT merge** — wait for explicit approval
 
 ## 9. Merge (only when approved)
