@@ -12,8 +12,6 @@ Pair it with `autopilot`: the agent answers its own questions by consulting your
 
 Every development skill enforces TDD, branch isolation, PR gate, and a quality checklist. Type a slash command, get a disciplined workflow.
 
-`/fix-bug` — systematic debugging, regression test, PR. `/add-feat` — design discussion, TDD, incremental PR. `/hotfix` — smallest possible fix, fast PR, auto-escalates if complex. `/minor-change` — quick branch, change, test, PR. `/refactor` — tests green before and after every change. `/audit` — security, quality, architecture report with file:line citations. `/watchdog` — cheap Haiku subagent polls CI/deployments, escalates on failure. `/pr-review` — isolated worktree, diff review, structured findings. `/git-release` — grouped release notes, you approve before tagging. `/update-deps` — patches in bulk, majors one by one, tests after each. `/init-project` — repo, structure, tooling, first commit. `/setup-ci` — interactive questionnaire, generates GitHub Actions workflows.
-
 ## Skills
 
 ### Personality Distillation
