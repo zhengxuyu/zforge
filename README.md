@@ -1,8 +1,8 @@
 # zforge
 
-Standardized GitHub development workflow skills for AI coding agents — Claude Code, Codex, Kiro, OpenClaw, Hermes Agent, and more.
+Personality distillation and development workflow skills for AI coding agents — Claude Code, Codex, Kiro, OpenClaw, Hermes Agent, and more.
 
-Type a slash command, get a disciplined workflow. TDD, branch isolation, PR review, quality checklist — every time, no exceptions.
+Teach your agent to work like you do, then give it disciplined workflows: TDD, branch isolation, PR review, quality checklist — every time, no exceptions.
 
 ## Why zforge?
 
@@ -91,14 +91,14 @@ The goal: after a few sessions, a fresh agent can read your principles file and 
 
 ## Skills
 
-### Personalization
+### Personality Distillation
 
 | Skill | When to use |
 |-------|-------------|
 | `/zforge:principle` | Distill yourself — agent learns your style, decisions, quality bar |
 | `/zforge:autopilot` | Autonomous mode — agent answers its own questions based on your profile |
 
-### Development
+### Development Workflows
 
 | Skill | When to use |
 |-------|-------------|
@@ -107,11 +107,6 @@ The goal: after a few sessions, a fresh agent can read your principles file and 
 | `/zforge:hotfix` | Production is down — smallest possible fix, fast PR |
 | `/zforge:minor-change` | Text tweak, config update, dead code removal — quick PR |
 | `/zforge:refactor` | Restructuring code — tests green before and after |
-
-### Operations
-
-| Skill | When to use |
-|-------|-------------|
 | `/zforge:watchdog` | Monitor any long-running process — CI/CD, deployments, jobs |
 | `/zforge:audit` | Audit a codebase — security, quality, architecture report |
 | `/zforge:pr-review` | Review a PR before merge — diff, tests, structured report |
