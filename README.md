@@ -10,7 +10,25 @@ AI coding agents are great at writing code, but they skip steps. They forget to 
 
 zforge gives your agent a complete set of development workflows so it follows the same discipline a senior engineer would: branch first, test first, review before merge, never ship without approval.
 
+## Distill Yourself
+
+The `principle` skill teaches your agent to work like you do. It reads `~/.claude/principles.md` at session start — your communication style, decision patterns, quality bar, workflow preferences — and follows them as default behavior. As you work together, it silently distills new signals from your corrections, choices, and reactions into that file, so the agent gets sharper over time without you repeating yourself.
+
+Pair it with `autopilot`: instead of asking you a question, the agent consults your personality profile, predicts what you'd answer, logs the reasoning, and keeps going. You review the log afterward. Wrong prediction? The correction feeds back into `principles.md`.
+
+The goal: after a few sessions, a fresh agent can read your principles file and behave indistinguishably from one that's worked with you for weeks.
+
 ## Example Use Cases
+
+**"I want the agent to work like me"** → `/zforge:principle`
+- Agent reads `~/.claude/principles.md` and adapts to your style, decisions, and quality bar
+- As you work, it silently distills new signals from your corrections and choices
+- After a few sessions, any fresh agent can read the file and behave like your regular one
+
+**"Don't ask me, just decide"** → `/zforge:autopilot`
+- Agent intercepts its own questions, consults your personality profile, predicts your answer
+- Logs every auto-decision with reasoning so you can audit: `[autopilot] Q: ... → A: ... (based on: ...)`
+- Wrong prediction? Your correction updates the profile automatically
 
 **"Fix this login bug"** → `/zforge:fix-bug`
 - Agent syncs main, creates `fix/login-bug` branch
@@ -72,6 +90,13 @@ zforge gives your agent a complete set of development workflows so it follows th
 - You review and confirm before anything is written
 
 ## Skills
+
+### Personalization
+
+| Skill | When to use |
+|-------|-------------|
+| `/zforge:principle` | Distill yourself — agent learns your style, decisions, quality bar |
+| `/zforge:autopilot` | Autonomous mode — agent answers its own questions based on your profile |
 
 ### Development
 
