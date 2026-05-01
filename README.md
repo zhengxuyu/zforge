@@ -2,199 +2,70 @@
 
 Personality distillation and development workflow skills for AI coding agents — Claude Code, Codex, Kiro, OpenClaw, Hermes Agent, and more.
 
-Teach your agent to work like you do, then give it disciplined workflows: TDD, branch isolation, PR review, quality checklist — every time, no exceptions.
-
-## Why zforge?
-
-AI coding agents are great at writing code, but they skip steps. They forget to branch, merge without approval, skip tests, or push broken code to main.
-
-zforge gives your agent a complete set of development workflows so it follows the same discipline a senior engineer would: branch first, test first, review before merge, never ship without approval.
-
 ## Distill Yourself
 
-The `principle` skill teaches your agent to work like you do. It reads `~/.claude/principles.md` at session start — your communication style, decision patterns, quality bar, workflow preferences — and follows them as default behavior. As you work together, it silently distills new signals from your corrections, choices, and reactions into that file, so the agent gets sharper over time without you repeating yourself.
+The `principle` skill reads `~/.claude/principles.md` at session start and operates according to your communication style, decision patterns, and quality bar. As you work together it silently distills new signals from your corrections and choices, so the agent gets sharper without you repeating yourself. After a few sessions, a fresh agent can read that file and behave indistinguishably from one that's worked with you for weeks.
 
-Pair it with `autopilot`: instead of asking you a question, the agent consults your personality profile, predicts what you'd answer, logs the reasoning, and keeps going. You review the log afterward. Wrong prediction? The correction feeds back into `principles.md`.
+Pair it with `autopilot`: the agent answers its own questions by consulting your profile, logs every auto-decision with reasoning, and keeps going. Wrong prediction? Your correction feeds back into the profile.
 
-The goal: after a few sessions, a fresh agent can read your principles file and behave indistinguishably from one that's worked with you for weeks.
+## Development Workflows
 
-## Example Use Cases
+Every development skill enforces TDD, branch isolation, PR gate, and a quality checklist. Type a slash command, get a disciplined workflow.
 
-**"I want the agent to work like me"** → `/zforge:principle`
-- Agent reads `~/.claude/principles.md` and adapts to your style, decisions, and quality bar
-- As you work, it silently distills new signals from your corrections and choices
-- After a few sessions, any fresh agent can read the file and behave like your regular one
-
-**"Don't ask me, just decide"** → `/zforge:autopilot`
-- Agent intercepts its own questions, consults your personality profile, predicts your answer
-- Logs every auto-decision with reasoning so you can audit: `[autopilot] Q: ... → A: ... (based on: ...)`
-- Wrong prediction? Your correction updates the profile automatically
-
-**"Fix this login bug"** → `/zforge:fix-bug`
-- Agent syncs main, creates `fix/login-bug` branch
-- Reads error, traces root cause (no guessing)
-- Writes a failing regression test first, then implements the fix
-- Runs full test suite, self-reviews the diff
-- Creates PR with root cause explanation, waits for your approval
-
-**"Add dark mode support"** → `/zforge:add-feat`
-- Agent presents design options and tradeoffs before writing code
-- Creates `feat/dark-mode` branch
-- TDD: writes tests first, implements incrementally
-- Quality checklist before PR: what changed, is it systematic, any regressions?
-- PR created, never merged without your say-so
-
-**"Update the copyright year in the footer"** → `/zforge:minor-change`
-- Quick branch, make the change, run tests, PR — no design overhead
-
-**"Production is down, users can't checkout"** → `/zforge:hotfix`
-- Smallest possible fix, regression test, fast PR
-- If the fix is complex (>20 lines), automatically escalates to full `/fix-bug` workflow
-
-**"Clean up the auth module, it's a mess"** → `/zforge:refactor`
-- Verifies all tests pass before touching anything
-- Refactors incrementally, tests must stay green after every change
-- If a test breaks, the refactor changed behavior — revert and rethink
-
-**"Audit this codebase before we go to production"** → `/zforge:audit`
-- Scans for security vulnerabilities (injection, auth issues, hardcoded secrets)
-- Reviews code quality (dead code, complexity hotspots, untested paths)
-- Checks architecture (circular deps, separation of concerns, scalability)
-- Structured report with file:line citations, prioritized by severity
-
-**"Watch this CI pipeline until it's green"** → `/zforge:watchdog`
-- Spawns a cheap Haiku subagent every 60s to check `gh pr checks`
-- All green → notifies you. Failure → main model reads logs, fixes, pushes, resumes monitoring
-- Works for any long-running process: CI, deployments, training jobs, servers
-
-**"Review PR #42 before we merge"** → `/zforge:pr-review`
-- Fetches diff, understands intent, reviews for correctness and security
-- Runs tests locally, tries to break edge cases
-- Structured report: Critical / Important / Suggestions with file:line citations
-
-**"Cut a release"** → `/zforge:git-release`
-- Reads version, generates grouped release notes from git log
-- Shows you the notes before tagging — you approve, then it tags and creates GitHub release
-
-**"Start a new project"** → `/zforge:init-project`
-- Creates repo, sets up structure, tooling, .gitignore, README, optional CI
-
-**"Update our dependencies"** → `/zforge:update-deps`
-- Lists outdated deps, applies patches in bulk, minors in batches, majors one by one
-- Tests after each batch, lock file committed alongside
-
-**"Set up CI/CD for this project"** → `/zforge:setup-ci`
-- Auto-detects language, package manager, test framework, build tool
-- Walks you through a questionnaire: triggers, testing, coverage, linting, security, deployment
-- Generates GitHub Actions workflows (ci.yml, deploy.yml, security.yml) with proper caching and concurrency
-- You review and confirm before anything is written
+`/fix-bug` — systematic debugging, regression test, PR. `/add-feat` — design discussion, TDD, incremental PR. `/hotfix` — smallest possible fix, fast PR, auto-escalates if complex. `/minor-change` — quick branch, change, test, PR. `/refactor` — tests green before and after every change. `/audit` — security, quality, architecture report with file:line citations. `/watchdog` — cheap Haiku subagent polls CI/deployments, escalates on failure. `/pr-review` — isolated worktree, diff review, structured findings. `/git-release` — grouped release notes, you approve before tagging. `/update-deps` — patches in bulk, majors one by one, tests after each. `/init-project` — repo, structure, tooling, first commit. `/setup-ci` — interactive questionnaire, generates GitHub Actions workflows.
 
 ## Skills
 
 ### Personality Distillation
 
-| Skill | When to use |
+| Skill | Description |
 |-------|-------------|
 | `/zforge:principle` | Distill yourself — agent learns your style, decisions, quality bar |
-| `/zforge:autopilot` | Autonomous mode — agent answers its own questions based on your profile |
+| `/zforge:autopilot` | Autonomous mode — agent answers its own questions from your profile |
 
 ### Development Workflows
 
-| Skill | When to use |
+| Skill | Description |
 |-------|-------------|
-| `/zforge:add-feat` | Building a new feature — design, TDD, PR |
-| `/zforge:fix-bug` | Something's broken — systematic debugging, regression test, PR |
-| `/zforge:hotfix` | Production is down — smallest possible fix, fast PR |
-| `/zforge:minor-change` | Text tweak, config update, dead code removal — quick PR |
-| `/zforge:refactor` | Restructuring code — tests green before and after |
-| `/zforge:watchdog` | Monitor any long-running process — CI/CD, deployments, jobs |
-| `/zforge:audit` | Audit a codebase — security, quality, architecture report |
-| `/zforge:pr-review` | Review a PR before merge — diff, tests, structured report |
-| `/zforge:git-release` | Cut a release — tag, push, GitHub release with notes |
-| `/zforge:update-deps` | Update dependencies safely — changelogs, tests, PR |
-| `/zforge:init-project` | Start a new project — repo, structure, tooling, first commit |
-| `/zforge:setup-ci` | Set up CI/CD — interactive questionnaire, generates GitHub Actions workflows |
+| `/zforge:add-feat` | New feature — design, TDD, PR |
+| `/zforge:fix-bug` | Debugging — root cause, regression test, PR |
+| `/zforge:hotfix` | Emergency — smallest fix, fast PR |
+| `/zforge:minor-change` | Quick tweak — branch, change, test, PR |
+| `/zforge:refactor` | Restructure — tests green before and after |
+| `/zforge:watchdog` | Monitor — CI/CD, deployments, long-running jobs |
+| `/zforge:audit` | Audit — security, quality, architecture |
+| `/zforge:pr-review` | Review — isolated worktree, structured report |
+| `/zforge:git-release` | Release — tag, notes, GitHub release |
+| `/zforge:update-deps` | Dependencies — changelogs, tests, PR |
+| `/zforge:init-project` | Bootstrap — repo, structure, tooling |
+| `/zforge:setup-ci` | CI/CD — GitHub Actions via questionnaire |
 
 ## Install
-
-### npx skills add (recommended)
 
 ```bash
 npx skills add zhengxuyu/zforge
 ```
 
-### git clone
+Or clone manually:
 
 ```bash
 git clone git@github.com:zhengxuyu/zforge.git ~/.claude/skills/zforge
-cd ~/.claude/skills/zforge
-./setup
+cd ~/.claude/skills/zforge && ./setup
 ```
 
-Auto-detects installed hosts and creates symlinks into their skill directories:
-
-| Host | Directory |
-|------|-----------|
-| Claude Code | `~/.claude/skills/` |
-| Codex | `~/.codex/skills/` |
-| Kiro | `~/.kiro/skills/` |
-| Factory | `~/.factory/skills/` |
-
-OpenClaw and Hermes Agent spawn Claude Code sessions, so they pick up skills from `~/.claude/skills/` automatically.
-
-To install for a specific host only:
-
-```bash
-./setup --host codex
-```
+The setup script auto-detects installed hosts (Claude Code, Codex, Kiro, Factory) and creates symlinks. OpenClaw and Hermes Agent use Claude Code's skill directory automatically.
 
 ## Update
-
-### npx skills update
 
 ```bash
 npx skills update zhengxuyu/zforge
 ```
 
-### git clone
+Or `cd ~/.claude/skills/zforge && git pull && ./setup`.
 
-```bash
-cd ~/.claude/skills/zforge && git pull && ./setup
-```
+## Adding Skills
 
-## Principles
-
-Every skill enforces the same discipline:
-
-- **TDD** — write tests first, implement second
-- **Branch workflow** — never push directly to main
-- **PR gate** — never merge without explicit approval
-- **Quality checklist** — self-check before every PR (what changed, root cause, single source of truth, test regression, reuse)
-- **Systematic debugging** — no guessing, find root cause first
-
-## Adding your own skills
-
-Create a directory under `skills/` with a `SKILL.md` file:
-
-```
-skills/my-skill/SKILL.md
-```
-
-SKILL.md format:
-
-```markdown
----
-name: my-skill
-description: One-line description shown in Claude Code
-user_invocable: true
----
-
-# My Skill
-
-Your workflow steps here...
-```
-
-Run `./setup` to register the new skill.
+Create `skills/my-skill/SKILL.md` with frontmatter (`name`, `description`, `user_invocable: true`) and your workflow steps. Run `./setup` to register.
 
 ## License
 
