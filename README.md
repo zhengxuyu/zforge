@@ -49,7 +49,7 @@ Guardrails for agents. Every skill enforces TDD, branch isolation, and PR gates.
 
 ### Claude Code
 
-Plugin install. Gets all skills + session hooks (personality distillation, memory auto-save/restore). Requires [superpowers](https://github.com/obra/superpowers-marketplace).
+Plugin install. Gets all skills + session hooks (personality distillation, memory auto-save/restore). [superpowers](https://github.com/obra/superpowers-marketplace) will be auto-installed on first session if not already present.
 
 ```bash
 claude plugin add zhengxuyu/zforge
