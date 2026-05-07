@@ -1,7 +1,6 @@
 ---
 name: principle
 description: Use at the start of EVERY session. Loads the user's personality profile and operates according to it. Also enables continuous distillation of new signals.
-user_invocable: true
 ---
 
 # Principle
