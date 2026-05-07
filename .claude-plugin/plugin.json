@@ -1,13 +1,10 @@
 {
   "name": "zforge",
-  "description": "Standardized GitHub development workflow skills for AI coding agents — TDD, branching, PR review, release",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Personality distillation, memory, and engineering workflow skills for AI coding agents",
   "author": {
-    "name": "zhengxuyu",
-    "email": "yuzxfred@gmail.com"
+    "name": "zhengxuyu"
   },
-  "homepage": "https://github.com/zhengxuyu/zforge",
   "repository": "https://github.com/zhengxuyu/zforge",
-  "license": "MIT",
-  "keywords": ["workflow", "tdd", "github", "pr", "code-review", "release"]
+  "license": "MIT"
 }

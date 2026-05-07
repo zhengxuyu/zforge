@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "zforge",
+  "description": "Personality distillation, memory, and engineering workflow skills",
+  "owner": {
+    "name": "zhengxuyu"
+  },
+  "plugins": [
+    {
+      "name": "zforge",
+      "description": "Personality distillation, memory, and engineering workflow skills for AI coding agents",
+      "version": "1.0.0",
+      "source": ".",
+      "author": {
+        "name": "zhengxuyu"
+      }
+    }
+  ]
+}
