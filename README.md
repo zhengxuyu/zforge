@@ -52,7 +52,7 @@ Guardrails for agents. Every skill enforces TDD, branch isolation, and PR gates.
 Plugin install. Gets all skills + session hooks (personality distillation, memory auto-save/restore). [superpowers](https://github.com/obra/superpowers-marketplace) will be auto-installed on first session if not already present.
 
 ```bash
-claude plugin add zhengxuyu/zforge
+claude plugin install zhengxuyu/zforge
 ```
 
 ### Codex / Kiro / OpenClaw / Hermes Agent
