@@ -1,7 +1,6 @@
 ---
 name: autopilot
 description: Use when the user says "autopilot", "auto mode", "替我回答", or "自动回答". Enables autonomous decision-making by answering Claude's own questions based on the user's personality profile.
-user_invocable: true
 ---
 
 # Autopilot

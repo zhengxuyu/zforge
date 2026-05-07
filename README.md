@@ -47,14 +47,29 @@ Guardrails for agents. Every skill enforces TDD, branch isolation, and PR gates.
 
 ## Install
 
+### Claude Code
+
+Plugin install. Gets all skills + session hooks (personality distillation, memory auto-save/restore). [superpowers](https://github.com/obra/superpowers-marketplace) will be auto-installed on first session if not already present.
+
+```bash
+claude plugin add zhengxuyu/zforge
+```
+
+### Codex / Kiro / OpenClaw / Hermes Agent
+
+Skills only (no hooks). Personality and memory skills still work but need manual invocation — no auto-inject at session start.
+
 ```bash
 npx skills add zhengxuyu/zforge
 ```
 
-## Update
+### Manual
+
+Clone and symlink into your agent's skill directory.
 
 ```bash
-npx skills update zhengxuyu/zforge
+git clone https://github.com/zhengxuyu/zforge.git ~/.zforge
+ln -s ~/.zforge/skills ~/.agents/skills/zforge
 ```
 
 ## License
