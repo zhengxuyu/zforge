@@ -16,7 +16,7 @@ if [ -f "$SETTINGS" ]; then
     # Look for any superpowers entry that is true
     if ! grep -q '"superpowers@.*": *true' "$SETTINGS" 2>/dev/null; then
         # Not enabled — try to enable from known marketplaces first
-        claude plugin add superpowers 2>/dev/null
+        claude plugin install superpowers 2>/dev/null
         cat << 'EOF'
 {"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": "zforge auto-installed superpowers plugin (required dependency). Restart session to activate."}}
 EOF
