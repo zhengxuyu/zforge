@@ -35,10 +35,8 @@ For each changed file:
 - Dead code, unused imports, debug prints left behind?
 - Tests added or updated for the change?
 
-4. **Run tests locally in a worktree**
-Create an isolated worktree so the current workspace stays clean:
+4. **Run tests locally**
 ```
-EnterWorktree(name: "pr-<number>")
 git fetch origin pull/<number>/head:pr-<number>
 git checkout pr-<number>
 ```
@@ -74,7 +72,7 @@ Present as a structured report:
 
 6. **Clean up**
 ```
-ExitWorktree(action: "remove")
+git checkout main && git branch -d pr-<number>
 ```
 
 ## Rules
