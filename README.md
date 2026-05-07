@@ -1,42 +1,49 @@
 # zforge
 
-Personality distillation and development workflow skills for AI coding agents — Claude Code, Codex, Kiro, OpenClaw, Hermes Agent, and more.
+My daily-driver AI coding agent skills. Works with Claude Code, Codex, OpenClaw, Hermes Agent, etc. Take what you find useful.
 
-## Distill Yourself
+## Personality
 
-The `principle` skill reads `~/.claude/principles.md` at session start and operates according to your communication style, decision patterns, and quality bar. As you work together it silently distills new signals from your corrections and choices, so the agent gets sharper without you repeating yourself. After a few sessions, a fresh agent can read that file and behave indistinguishably from one that's worked with you for weeks.
+Solves the blank-slate problem — agents forget everything between sessions.
 
-Pair it with `autopilot`: the agent answers its own questions by consulting your profile, logs every auto-decision with reasoning, and keeps going. Wrong prediction? Your correction feeds back into the profile.
+`principle` loads `~/.claude/principles.md` at session start and silently extracts new signals from your corrections and decisions as you work. After a few sessions, a fresh agent doesn't need re-training. `autopilot` goes further — the agent consults your profile to answer its own questions instead of interrupting you, and logs every decision. `memory` auto-saves a working memory (what you're doing, decisions made, blockers) via session hooks and restores it on next start. Important stuff gets promoted to long-term memory that persists across projects.
 
-## Development Workflows
-
-Every development skill enforces TDD, branch isolation, PR gate, and a quality checklist. Type a slash command, get a disciplined workflow.
-
-## Skills
-
-### Personality Distillation
-
-| Skill | Description |
+| Skill | What it does |
 |-------|-------------|
-| `/zforge:principle` | Distill yourself — agent learns your style, decisions, quality bar |
-| `/zforge:autopilot` | Autonomous mode — agent answers its own questions from your profile |
+| `principle` | Extracts your style, decisions, quality bar into a reusable profile |
+| `autopilot` | Agent answers its own questions from your profile, doesn't interrupt |
+| `memory` | Working memory (daily notes) + long-term memory across sessions |
 
-### Development Workflows
+## Engineering
 
-| Skill | Description |
+Guardrails for agents. Every skill enforces TDD, branch isolation, and PR gates.
+
+### Build
+
+| Skill | What it does |
 |-------|-------------|
-| `/zforge:add-feat` | New feature — design, TDD, PR |
-| `/zforge:fix-bug` | Debugging — root cause, regression test, PR |
-| `/zforge:hotfix` | Emergency — smallest fix, fast PR |
-| `/zforge:minor-change` | Quick tweak — branch, change, test, PR |
-| `/zforge:refactor` | Restructure — tests green before and after |
-| `/zforge:watchdog` | Monitor — CI/CD, deployments, long-running jobs |
-| `/zforge:audit` | Audit — security, quality, architecture |
-| `/zforge:pr-review` | Review — isolated worktree, structured report |
-| `/zforge:git-release` | Release — tag, notes, GitHub release |
-| `/zforge:update-deps` | Dependencies — changelogs, tests, PR |
-| `/zforge:init-project` | Bootstrap — repo, structure, tooling |
-| `/zforge:setup-ci` | CI/CD — GitHub Actions via questionnaire |
+| `add-feat` | New feature — design, TDD, PR |
+| `fix-bug` | Root cause, regression test, PR |
+| `hotfix` | Emergency — smallest fix, fast PR |
+| `minor-change` | Quick tweak — branch, change, test, PR |
+| `refactor` | Restructure — tests green before and after |
+
+### Ship
+
+| Skill | What it does |
+|-------|-------------|
+| `pr-review` | Isolated worktree review, structured report |
+| `git-release` | Tag, release notes, GitHub release |
+| `update-deps` | Changelogs, compatibility tests, PR |
+
+### Infra
+
+| Skill | What it does |
+|-------|-------------|
+| `init-project` | Bootstrap repo, structure, tooling |
+| `setup-ci` | GitHub Actions via single-question flow |
+| `watchdog` | Monitor CI/CD, deployments, long-running jobs |
+| `audit` | Security, quality, architecture review |
 
 ## Install
 
@@ -44,26 +51,11 @@ Every development skill enforces TDD, branch isolation, PR gate, and a quality c
 npx skills add zhengxuyu/zforge
 ```
 
-Or clone manually:
-
-```bash
-git clone git@github.com:zhengxuyu/zforge.git ~/.claude/skills/zforge
-cd ~/.claude/skills/zforge && ./setup
-```
-
-The setup script auto-detects installed hosts (Claude Code, Codex, Kiro, Factory) and creates symlinks. OpenClaw and Hermes Agent use Claude Code's skill directory automatically.
-
 ## Update
 
 ```bash
 npx skills update zhengxuyu/zforge
 ```
-
-Or `cd ~/.claude/skills/zforge && git pull && ./setup`.
-
-## Adding Skills
-
-Create `skills/my-skill/SKILL.md` with frontmatter (`name`, `description`, `user_invocable: true`) and your workflow steps. Run `./setup` to register.
 
 ## License
 
